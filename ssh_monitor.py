@@ -13,18 +13,17 @@ It then:
   4. Checks IP reputation via AbuseIPDB.
   5. Logs alerts in JSON format.
 
-Make sure you install:
-  pip install requests python-dotenv
-
 Usage:
   python ssh_monitor.py
+
+Requirements:
+  - pip install requests python-dotenv
 """
 
 import re
 import sys
 import json
 import os
-import socket
 import ipaddress
 import requests
 from datetime import datetime, timedelta
@@ -85,20 +84,6 @@ def parse_log_timestamp(log_line: str) -> datetime:
         return datetime.now()
 
 
-def resolve_ip_if_needed(ip_or_host: str) -> str:
-    """
-    Resolve a hostname to IP if it's not a straightforward IPv4/IPv6.
-    Return None if it can't be resolved or validated.
-    """
-    # Simple IP pattern check
-    if re.match(r'^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$', ip_or_host) or ":" in ip_or_host:
-        return ip_or_host
-    try:
-        return socket.gethostbyname(ip_or_host)
-    except socket.gaierror:
-        return None
-
-
 def parse_log_file(filepath: str) -> list[LoginEvent]:
     """
     Read the SSH log file, parse out relevant events (FAILED or SUCCESS),
@@ -120,20 +105,16 @@ def parse_log_file(filepath: str) -> list[LoginEvent]:
                 match = re.search(failed_regex, line)
                 if match:
                     raw_ip = match.group(1)
-                    ip = resolve_ip_if_needed(raw_ip)
-                    if ip:
-                        ts = parse_log_timestamp(line)
-                        events.append(LoginEvent(timestamp=ts, ip=ip, event_type="FAILED", raw_line=line))
+                    ts = parse_log_timestamp(line)
+                    events.append(LoginEvent(timestamp=ts, ip=raw_ip, event_type="FAILED", raw_line=line))
                     continue
 
                 # Check for Success
                 match = re.search(success_regex, line)
                 if match:
                     raw_ip = match.group(1)
-                    ip = resolve_ip_if_needed(raw_ip)
-                    if ip:
-                        ts = parse_log_timestamp(line)
-                        events.append(LoginEvent(timestamp=ts, ip=ip, event_type="SUCCESS", raw_line=line))
+                    ts = parse_log_timestamp(line)
+                    events.append(LoginEvent(timestamp=ts, ip=raw_ip, event_type="SUCCESS", raw_line=line))
     except FileNotFoundError:
         print(f"[ERROR] Log file not found: {filepath}")
 
@@ -154,6 +135,7 @@ def is_whitelisted(ip: str, whitelist: list[str]) -> bool:
                     return True
         return False
     except ValueError:
+        # If it's not a valid IP, treat it as not whitelisted.
         return False
 
 
@@ -171,6 +153,7 @@ def is_blacklisted(ip: str, blacklist: list[str]) -> bool:
                     return True
         return False
     except ValueError:
+        # If it's not a valid IP, treat it as not blacklisted.
         return False
 
 
@@ -330,7 +313,7 @@ def main():
     ).strip()
 
     # If user provided something (possibly with single quotes from drag/drop),
-    # remove single quotes and assign to log_path. Otherwise use default.
+    # remove quotes. Otherwise use default.
     if user_input:
         log_path = user_input.strip("'\"")
     else:
