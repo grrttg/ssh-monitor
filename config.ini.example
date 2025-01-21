@@ -1,0 +1,23 @@
+[default]
+# Path to the SSH auth log file
+log_file_path=/var/log/auth.log
+
+# Threshold for consecutive failed attempts before success
+failed_threshold=3
+
+# Time window analysis: 300 seconds (5 minutes) by default
+time_window_seconds=300
+# If an IP fails this many times within the time window, raise alert
+time_window_threshold=10
+
+# AbuseIPDB reputation threshold. If score >= 50, raise High severity alert
+reputation_threshold=50
+
+# Comma-separated list of whitelisted IPs or CIDR networks
+whitelist=192.168.1.0/24, 127.0.0.1
+
+# Comma-separated list of blacklisted IPs or CIDR networks
+blacklist=203.0.113.5
+
+# File where alerts are appended in JSON format
+alert_log=alerts.json
