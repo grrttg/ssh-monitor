@@ -1,0 +1,15 @@
+# Burst of failed login attempts from 203.0.113.100 within the time window to trigger a TimeWindowBurst alert (HIGH severity).
+# Also includes a blacklisted IP (203.0.113.5) to trigger a BlacklistHit alert (HIGH severity).
+Mar 15 12:00:00 localhost sshd[3000]: Failed password for root from 203.0.113.100 port 1001 ssh2
+Mar 15 12:00:05 localhost sshd[3001]: Failed password for root from 203.0.113.100 port 1002 ssh2
+Mar 15 12:00:10 localhost sshd[3002]: Failed password for invalid user test from 203.0.113.100 port 1003 ssh2
+Mar 15 12:00:15 localhost sshd[3003]: Failed password for root from 203.0.113.100 port 1004 ssh2
+Mar 15 12:00:20 localhost sshd[3004]: Failed password for root from 203.0.113.100 port 1005 ssh2
+Mar 15 12:00:25 localhost sshd[3005]: Failed password for root from 203.0.113.100 port 1006 ssh2
+Mar 15 12:00:30 localhost sshd[3006]: Failed password for root from 203.0.113.100 port 1007 ssh2
+Mar 15 12:00:35 localhost sshd[3007]: Failed password for root from 203.0.113.100 port 1008 ssh2
+Mar 15 12:00:40 localhost sshd[3008]: Failed password for root from 203.0.113.100 port 1009 ssh2
+Mar 15 12:00:45 localhost sshd[3009]: Failed password for root from 203.0.113.100 port 1010 ssh2
+Mar 15 12:00:50 localhost sshd[3010]: Failed password for root from 203.0.113.100 port 1011 ssh2
+Mar 15 12:05:00 localhost sshd[3011]: Accepted password for user4 from 192.0.2.50 port 2000 ssh2
+Mar 15 12:10:00 localhost sshd[3012]: Failed password for root from 203.0.113.5 port 3000 ssh2

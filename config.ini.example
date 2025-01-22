@@ -1,0 +1,48 @@
+[default]
+# --- Log File Settings ---
+
+# Path to the SSH authentication log file.
+# This is the file the script will monitor for login attempts.
+log_file_path = /var/log/auth.log
+
+# --- Brute-Force Detection Thresholds ---
+
+# The number of consecutive failed login attempts from a single IP
+# that must occur before an alert is triggered.
+failed_threshold = 3
+
+# --- Time Window Analysis ---
+
+# The length of the time window (in seconds) during which the script
+# will monitor for bursts of failed login attempts.
+# Default is 300 seconds (5 minutes).
+time_window_seconds = 300
+
+# The number of failed login attempts from a single IP within the
+# time window that will trigger an alert.
+time_window_threshold = 10
+
+# --- AbuseIPDB Reputation Check ---
+
+# The minimum AbuseIPDB reputation score that will trigger a
+# "High" severity alert.
+reputation_threshold = 50
+
+# --- IP Whitelist ---
+
+# A comma-separated list of IP addresses or CIDR networks that should
+# be excluded from monitoring and reputation checks.
+# Example: whitelist = 192.168.1.0/24, 10.0.0.5, 127.0.0.1
+whitelist = 192.168.1.0/24, 127.0.0.1
+
+# --- IP Blacklist ---
+
+# A comma-separated list of IP addresses or CIDR networks that should
+# be immediately flagged with a "High" severity alert without
+# performing a reputation check.
+blacklist = 203.0.113.5
+
+# --- Alert Logging ---
+
+# The file where alerts will be appended in JSON format.
+alert_log = alerts.json
