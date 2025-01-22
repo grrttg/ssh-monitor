@@ -1,0 +1,14 @@
+# Repeated failed login attempts from 198.51.100.50 to trigger RepeatedFailures alerts.
+# Should trigger one RepeatedFailures alert with failed_count=4 (LOW severity) and one with failed_count=5 (MEDIUM severity).
+Mar 15 11:00:00 localhost sshd[2000]: Failed password for root from 198.51.100.50 port 1000 ssh2
+Mar 15 11:00:05 localhost sshd[2000]: Failed password for root from 198.51.100.50 port 1000 ssh2
+Mar 15 11:00:10 localhost sshd[2000]: Failed password for root from 198.51.100.50 port 1000 ssh2
+Mar 15 11:00:15 localhost sshd[2000]: Failed password for root from 198.51.100.50 port 1000 ssh2
+Mar 15 11:00:20 localhost sshd[2000]: Accepted password for root from 198.51.100.50 port 1000 ssh2
+Mar 15 11:01:00 localhost sshd[2001]: Failed password for invalid user test from 192.0.2.30 port 2000 ssh2
+Mar 15 11:02:00 localhost sshd[2002]: Accepted password for user3 from 192.0.2.40 port 3000 ssh2
+Mar 15 11:04:00 localhost sshd[2003]: Failed password for root from 198.51.100.50 port 1000 ssh2
+Mar 15 11:04:05 localhost sshd[2003]: Failed password for root from 198.51.100.50 port 1000 ssh2
+Mar 15 11:04:10 localhost sshd[2003]: Failed password for root from 198.51.100.50 port 1000 ssh2
+Mar 15 11:04:15 localhost sshd[2003]: Failed password for root from 198.51.100.50 port 1000 ssh2
+Mar 15 11:04:20 localhost sshd[2003]: Failed password for root from 198.51.100.50 port 1000 ssh2

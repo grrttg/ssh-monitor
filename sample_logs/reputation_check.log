@@ -1,0 +1,2 @@
+# Replace 198.51.100.XXX with a real IP from AbuseIPDB (high confidence score). Run: python ssh_monitor.py sample_logs/reputation_check.log
+Mar 15 18:00:00 localhost sshd[8000]: Failed password for root from 198.51.100.XXX port 1100 ssh2
