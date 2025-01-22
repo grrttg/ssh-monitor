@@ -1,23 +1,28 @@
+# C. Garrett Gue
+# 2025-1-21
 #!/usr/bin/env python3
 """
-Simplified SSH Log Monitoring & Analysis Script
-----------------------------------------------
-This script reads settings from config.ini and the AbuseIPDB API key from .env.
-It then:
-  1. Allows the user to either provide a sample log file path (by drag-and-drop
-     or manual entry) or press Enter to use the default from config.ini.
-  2. Parses SSH auth logs for failed/successful login attempts.
-  3. Identifies suspicious brute-force patterns:
-       - Multiple failed attempts in a row (failed_threshold).
-       - Multiple failures in a short time window (time_window_threshold).
-  4. Checks IP reputation via AbuseIPDB.
-  5. Logs alerts in JSON format.
+SSH Log Monitoring and Analysis Script.
+
+This script monitors SSH authentication logs for suspicious patterns, including
+repeated failed login attempts and bursts of failures within a short time window.
+It also performs IP reputation checks using the AbuseIPDB API.
 
 Usage:
-  python ssh_monitor.py
+    python ssh_monitor.py [log_file_path]
+
+    - If log_file_path is provided, the script analyzes that file.
+    - If no log_file_path is provided, the script uses the default path
+      specified in config.ini.
 
 Requirements:
-  - pip install requests python-dotenv
+    - requests (pip install requests)
+    - python-dotenv (pip install python-dotenv)
+    - An AbuseIPDB API key (set in the .env file)
+
+Configuration:
+    - Settings are read from config.ini.
+    - The AbuseIPDB API key should be stored in a .env file.
 """
 
 import re
